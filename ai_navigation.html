@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="探索64款顶级AI工具，涵盖聊天机器人、图像生成器、视频生成等，双语支持。">
+    <meta name="keywords" content="AI工具, AI Tools, 聊天机器人, 图像生成器, 视频生成器, 写作工具, 编码助手">
+    <title>AI工具导航站 - 64款顶级工具</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        h1 { 
+            color: #fff; 
+            font-size: 3.5em; 
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            letter-spacing: -1px;
+        }
+        
+        .subtitle { 
+            color: rgba(255,255,255,0.9); 
+            font-size: 1.3em; 
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .category {
+            margin-bottom: 50px;
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .category:nth-child(even) { animation-delay: 0.1s; }
+        .category:nth-child(odd) { animation-delay: 0.2s; }
+        
+        h2 {
+            background: linear-gradient(135deg, #fff 0%, #f8f9ff 100%);
+            padding: 20px 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            color: #4f46e5;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        h2:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .tool-card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4f46e5, #7c3aed, #06b6d4);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        
+        .tool-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            background: rgba(255,255,255,0.98);
+        }
+        
+        .tool-link {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            height: 100%;
+        }
+        
+        .tool-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        
+        .tool-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0;
+        }
+        
+        .tool-icon {
+            font-size: 1.5em;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover .tool-icon {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .tool-favicon {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover .tool-favicon {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .tool-company {
+            color: #6b7280;
+            font-size: 0.9em;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .tool-description {
+            color: #4b5563;
+            font-size: 0.95em;
+            line-height: 1.5;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover .tool-description {
+            opacity: 1;
+            max-height: 100px;
+            margin-top: 8px;
+        }
+        
+        .tool-nav {
+            color: #374151;
+            font-size: 0.9em;
+            line-height: 1.4;
+            margin-top: 8px;
+            font-weight: 400;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            display: block;
+            color: #fff;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95em;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container { padding: 20px 15px; }
+            h1 { font-size: 2.5em; }
+            h2 { font-size: 1.4em; padding: 15px 20px; }
+            .tools-grid { 
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+            .tool-card { padding: 20px; }
+            .stats { gap: 20px; }
+            .stat-number { font-size: 2em; }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 2em; }
+            .subtitle { font-size: 1.1em; }
+            .tools-grid { 
+                grid-template-columns: 1fr;
+            }
+            .tool-card { padding: 18px; }
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "AI工具导航站",
+      "description": "探索64款顶级AI工具，涵盖聊天机器人、图像生成器、视频生成等，双语支持。"
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI工具导航站</h1>
+            <p class="subtitle">精选64款优质AI工具，涵盖14个类别，持续更新最新资源</p>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">64</span>
+                    <span class="stat-label">精选工具</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">14</span>
+                    <span class="stat-label">分类领域</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">实时</span>
+                    <span class="stat-label">持续更新</span>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="category">
+                <h2>🤖 AI助手 / AI Assistants</h2>
+                <ul class="tools-grid">
+                    <li class="tool-card">
+                        <a href="https://chat.openai.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">ChatGPT</h3>
+                                <img src="https://chat.openai.com/favicon.ico" alt="ChatGPT" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">OpenAI</div>
+                            <div class="tool-nav">与AI对话，获取答案、创作内容、解决问题</div>
+                            <div class="tool-description">强大的对话AI，支持文本生成、翻译、编程等多种任务</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://claude.ai" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Claude</h3>
+                                <img src="https://claude.ai/favicon.ico" alt="Claude" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Anthropic</div>
+                            <div class="tool-nav">安全可靠的AI助手，擅长分析和推理</div>
+                            <div class="tool-description">注重安全性和精确性的AI对话助手</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://gemini.google.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Gemini</h3>
+                                <img src="https://gemini.google.com/favicon.ico" alt="Gemini" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Google</div>
+                            <div class="tool-nav">Google的AI助手，集成搜索和多媒体处理</div>
+                            <div class="tool-description">与Google生态系统集成的AI助手，支持多模态任务</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://grok.xai" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Grok</h3>
+                                <img src="https://grok.xai/favicon.ico" alt="Grok" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">xAI</div>
+                            <div class="tool-nav">实时信息访问，深度分析当前事件</div>
+                            <div class="tool-description">提供深入推理和实时搜索的AI，适合开发者</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://character.ai" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Character.AI</h3>
+                                <img src="https://character.ai/favicon.ico" alt="Character.AI" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Character.AI</div>
+                            <div class="tool-nav">创建个性化AI角色，进行角色扮演对话</div>
+                            <div class="tool-description">创建和互动AI角色，适合娱乐和创意</div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="category">
+                <h2>🎨 AI图像生成器 / AI Image Generators</h2>
+                <ul class="tools-grid">
+                    <li class="tool-card">
+                        <a href="https://www.midjourney.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Midjourney</h3>
+                                <img src="https://www.midjourney.com/favicon.ico" alt="Midjourney" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Midjourney</div>
+                            <div class="tool-nav">输入文字描述，生成精美艺术图像</div>
+                            <div class="tool-description">生成高质量艺术风格图像，适合创意设计</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://openai.com/dall-e-3" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">DALL-E 3</h3>
+                                <img src="https://openai.com/favicon.ico" alt="DALL-E 3" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">OpenAI</div>
+                            <div class="tool-nav">在ChatGPT中直接生成图像，无需切换</div>
+                            <div class="tool-description">集成在ChatGPT中的文本到图像生成</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.adobe.com/products/firefly.html" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Adobe Firefly</h3>
+                                <img src="https://www.adobe.com/favicon.ico" alt="Adobe Firefly" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Adobe</div>
+                            <div class="tool-nav">专为商业设计的AI图像生成工具</div>
+                            <div class="tool-description">商业用途AI图像生成，集成Adobe工具</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://stability.ai/stable-diffusion" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Stable Diffusion</h3>
+                                <img src="https://stability.ai/favicon.ico" alt="Stable Diffusion" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Stability AI</div>
+                            <div class="tool-nav">开源免费的图像生成，可本地部署</div>
+                            <div class="tool-description">开源图像生成，适合开发者定制</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.photoroom.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Photoroom</h3>
+                                <img src="https://www.photoroom.com/favicon.ico" alt="Photoroom" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Photoroom</div>
+                            <div class="tool-nav">一键去除背景，创建专业产品图片</div>
+                            <div class="tool-description">背景移除和产品照片创建，适合电商</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.remove.bg" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Remove.bg</h3>
+                                <img src="https://www.remove.bg/favicon.ico" alt="Remove.bg" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Remove.bg</div>
+                            <div class="tool-nav">5秒自动去除图片背景，操作简单</div>
+                            <div class="tool-description">背景移除工具，简单易用</div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="category">
+                <h2>🎬 AI视频生成器 / AI Video Generators</h2>
+                <ul class="tools-grid">
+                    <li class="tool-card">
+                        <a href="https://www.synthesia.io" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Synthesia</h3>
+                                <img src="https://www.synthesia.io/favicon.ico" alt="Synthesia" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Synthesia</div>
+                            <div class="tool-nav">创建AI数字人视频，无需真人出镜</div>
+                            <div class="tool-description">AI驱动的视频生成，支持多语言和化身</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.runwayml.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Runway</h3>
+                                <img src="https://www.runwayml.com/favicon.ico" alt="Runway" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Runway</div>
+                            <div class="tool-nav">文字生成视频，AI视频编辑神器</div>
+                            <div class="tool-description">提供文本到视频和图像编辑功能</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.deepbrain.io" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">DeepBrain</h3>
+                                <img src="https://www.deepbrain.io/favicon.ico" alt="DeepBrain" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">DeepBrain AI</div>
+                            <div class="tool-nav">定制AI主播，快速制作培训视频</div>
+                            <div class="tool-description">定制化AI视频生成，适合营销和教育</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://pictory.ai" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Pictory</h3>
+                                <img src="https://pictory.ai/favicon.ico" alt="Pictory" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Pictory</div>
+                            <div class="tool-nav">博客文章转视频，自动生成字幕</div>
+                            <div class="tool-description">快速视频编辑，适合社交媒体内容</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://lumen5.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Lumen5</h3>
+                                <img src="https://lumen5.com/favicon.ico" alt="Lumen5" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Lumen5</div>
+                            <div class="tool-nav">文章一键转换为精美视频</div>
+                            <div class="tool-description">将文本转换为视频，适合快速内容创建</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.descript.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Descript</h3>
+                                <img src="https://www.descript.com/favicon.ico" alt="Descript" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Descript</div>
+                            <div class="tool-nav">像编辑文档一样编辑视频和音频</div>
+                            <div class="tool-description">视频编辑和音频转录工具，用户友好</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.klingai.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">可灵AI (Kling AI)</h3>
+                                <img src="https://www.klingai.com/favicon.ico" alt="可灵AI" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">快手</div>
+                            <div class="tool-nav">中文优化的视频生成，支持长视频</div>
+                            <div class="tool-description">文生视频和图生视频生成，适合专业创作</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://jimeng.jianying.com/ai-tool/home" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">即梦AI</h3>
+                                <img src="https://jimeng.jianying.com/favicon.ico" alt="即梦AI" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">剪映</div>
+                            <div class="tool-nav">抖音生态的AI视频创作工具</div>
+                            <div class="tool-description">图像和视频生成，带有数字人功能</div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="category">
+                <h2>✍️ AI写作工具 / AI Writing Tools</h2>
+                <ul class="tools-grid">
+                    <li class="tool-card">
+                        <a href="https://www.grammarly.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Grammarly</h3>
+                                <img src="https://www.grammarly.com/favicon.ico" alt="Grammarly" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Grammarly</div>
+                            <div class="tool-nav">实时检查语法错误，提升写作质量</div>
+                            <div class="tool-description">语法检查和写作优化，支持多种语言</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://rytr.me" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Rytr</h3>
+                                <img src="https://rytr.me/favicon.ico" alt="Rytr" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Rytr</div>
+                            <div class="tool-nav">快速生成各类文案，30+种写作模板</div>
+                            <div class="tool-description">短篇内容生成，支持各种模板和语言</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://quillbot.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">QuillBot</h3>
+                                <img src="https://quillbot.com/favicon.ico" alt="QuillBot" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">QuillBot</div>
+                            <div class="tool-nav">智能改写文本，避免重复表达</div>
+                            <div class="tool-description">文本改写和优化，适合学术和创意写作</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://jasper.ai" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Jasper</h3>
+                                <img src="https://jasper.ai/favicon.ico" alt="Jasper" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Jasper</div>
+                            <div class="tool-nav">专业营销文案生成，提升转化率</div>
+                            <div class="tool-description">内容创建工具，适合营销和博客写作</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://copy.ai" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Copy.ai</h3>
+                                <img src="https://copy.ai/favicon.ico" alt="Copy.ai" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Copy.ai</div>
+                            <div class="tool-nav">AI广告文案助手，创意无限</div>
+                            <div class="tool-description">广告文案和内容创建，适合营销团队</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.wordtune.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Wordtune</h3>
+                                <img src="https://www.wordtune.com/favicon.ico" alt="Wordtune" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">AI21 Labs</div>
+                            <div class="tool-nav">优化句子表达，让文字更流畅</div>
+                            <div class="tool-description">写作增强工具，提供多种语调和风格</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://prowritingaid.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">ProWritingAid</h3>
+                                <img src="https://prowritingaid.com/favicon.ico" alt="ProWritingAid" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">ProWritingAid</div>
+                            <div class="tool-nav">深度写作分析，专业编辑建议</div>
+                            <div class="tool-description">高级写作助手，专注于风格和清晰度</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.sudowrite.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Sudowrite</h3>
+                                <img src="https://www.sudowrite.com/favicon.ico" alt="Sudowrite" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Sudowrite</div>
+                            <div class="tool-nav">小说创作伙伴，激发故事灵感</div>
+                            <div class="tool-description">专为小说家设计的AI写作助手</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://writer.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Writer.ai</h3>
+                                <img src="https://writer.com/favicon.ico" alt="Writer.ai" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Writer</div>
+                            <div class="tool-nav">企业级写作平台，团队协作无忧</div>
+                            <div class="tool-description">企业级AI写作工具，支持团队协作</div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="category">
+                <h2>🔍 AI搜索引擎 / AI Search Engines</h2>
+                <ul class="tools-grid">
+                    <li class="tool-card">
+                        <a href="https://www.perplexity.ai" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Perplexity</h3>
+                                <img src="https://www.perplexity.ai/favicon.ico" alt="Perplexity" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Perplexity AI</div>
+                            <div class="tool-nav">AI搜索引擎，获得准确答案和引用来源</div>
+                            <div class="tool-description">提供带引用的直接答案，适合研究</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.youdao.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Youdao</h3>
+                                <img src="https://www.youdao.com/favicon.ico" alt="Youdao" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">网易有道</div>
+                            <div class="tool-nav">中文搜索和翻译，学习查资料首选</div>
+                            <div class="tool-description">中国的AI搜索和翻译工具，适合跨语言研究</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://chat.openai.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">ChatGPT Search</h3>
+                                <img src="https://chat.openai.com/favicon.ico" alt="ChatGPT Search" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">OpenAI</div>
+                            <div class="tool-nav">在ChatGPT中直接搜索最新信息</div>
+                            <div class="tool-description">集成在ChatGPT中的AI搜索功能</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.google.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Google AI Overviews</h3>
+                                <img src="https://www.google.com/favicon.ico" alt="Google AI Overviews" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Google</div>
+                            <div class="tool-nav">Google搜索结果的AI智能摘要</div>
+                            <div class="tool-description">集成在Google搜索中的AI摘要功能</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://arc.net" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Arc Search</h3>
+                                <img src="https://arc.net/favicon.ico" alt="Arc Search" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">The Browser Company</div>
+                            <div class="tool-nav">移动端AI搜索，自动整理搜索结果</div>
+                            <div class="tool-description">AI驱动的搜索，提供摘要结果</div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="category">
+                <h2>🌐 AI翻译工具 / AI Translation Tools</h2>
+                <ul class="tools-grid">
+                    <li class="tool-card">
+                        <a href="https://translate.google.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Google Translate</h3>
+                                <img src="https://translate.google.com/favicon.ico" alt="Google Translate" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Google</div>
+                            <div class="tool-nav">免费在线翻译，支持100+种语言</div>
+                            <div class="tool-description">多语言文本、语音和图像翻译</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.deepl.com/translator" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">DeepL Translate</h3>
+                                <img src="https://www.deepl.com/favicon.ico" alt="DeepL Translate" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">DeepL</div>
+                            <div class="tool-nav">最精准的AI翻译，保持文档格式</div>
+                            <div class="tool-description">高精度翻译，保留文档格式</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.microsoft.com/en-us/translator" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Microsoft Translator</h3>
+                                <img src="https://www.microsoft.com/favicon.ico" alt="Microsoft Translator" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Microsoft</div>
+                            <div class="tool-nav">实时语音翻译，多人会议同传</div>
+                            <div class="tool-description">支持多语言实时和文档翻译</div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="category">
+                <h2>🎙️ AI语音生成器 / AI Voice Generators</h2>
+                <ul class="tools-grid">
+                    <li class="tool-card">
+                        <a href="https://murf.ai" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Murf.ai</h3>
+                                <img src="https://murf.ai/favicon.ico" alt="Murf.ai" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Murf</div>
+                            <div class="tool-nav">文字转语音，120+种逼真AI声音</div>
+                            <div class="tool-description">逼真的AI语音生成，支持多语言定制</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://play.ht" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Play.ht</h3>
+                                <img src="https://play.ht/favicon.ico" alt="Play.ht" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">PlayHT</div>
+                            <div class="tool-nav">快速语音合成，适合播客和有声书</div>
+                            <div class="tool-description">快速文本转语音，适合播客和教育</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://speechify.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Speechify</h3>
+                                <img src="https://speechify.com/favicon.ico" alt="Speechify" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Speechify</div>
+                            <div class="tool-nav">将任何文本转为自然语音朗读</div>
+                            <div class="tool-description">自然语音生成，适合阅读和配音</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://elevenlabs.io" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">ElevenLabs</h3>
+                                <img src="https://elevenlabs.io/favicon.ico" alt="ElevenLabs" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">ElevenLabs</div>
+                            <div class="tool-nav">克隆任何人的声音，情感表达丰富</div>
+                            <div class="tool-description">高质量AI语音生成，支持情感表达</div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="category">
+                <h2>🎵 AI音乐生成器 / AI Music Generators</h2>
+                <ul class="tools-grid">
+                    <li class="tool-card">
+                        <a href="https://www.ampermusic.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Amper Music</h3>
+                                <img src="https://www.ampermusic.com/favicon.ico" alt="Amper Music" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Amper Music</div>
+                            <div class="tool-nav">为视频和广告定制背景音乐</div>
+                            <div class="tool-description">自定义音乐生成，适合视频和广告</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.soundful.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Soundful</h3>
+                                <img src="https://www.soundful.com/favicon.ico" alt="Soundful" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Soundful</div>
+                            <div class="tool-nav">零基础AI音乐创作，一键生成</div>
+                            <div class="tool-description">AI音乐生成，适合非音乐家</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.aiva.ai" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">AIVA</h3>
+                                <img src="https://www.aiva.ai/favicon.ico" alt="AIVA" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">AIVA Technologies</div>
+                            <div class="tool-nav">专业音乐创作，版权完全属于你</div>
+                            <div class="tool-description">版权免费音乐生成，支持各种风格</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.suno.ai" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Suno</h3>
+                                <img src="https://www.suno.ai/favicon.ico" alt="Suno" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Suno</div>
+                            <div class="tool-nav">输入歌词和风格，AI生成完整歌曲</div>
+                            <div class="tool-description">AI音乐创作工具，适合歌曲制作</div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="category">
+                <h2>💻 AI编码助手 / AI Coding Assistants</h2>
+                <ul class="tools-grid">
+                    <li class="tool-card">
+                        <a href="https://github.com/features/copilot" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">GitHub Copilot</h3>
+                                <img src="https://github.com/favicon.ico" alt="GitHub Copilot" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">GitHub</div>
+                            <div class="tool-nav">AI编程助手，自动补全代码和函数</div>
+                            <div class="tool-description">代码自动补全，支持多种编程语言</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.tabnine.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Tabnine</h3>
+                                <img src="https://www.tabnine.com/favicon.ico" alt="Tabnine" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Tabnine</div>
+                            <div class="tool-nav">智能代码补全，支持所有主流编辑器</div>
+                            <div class="tool-description">AI驱动的代码补全工具，提升开发效率</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://aws.amazon.com/codewhisperer" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Amazon CodeWhisperer</h3>
+                                <img src="https://aws.amazon.com/favicon.ico" alt="Amazon CodeWhisperer" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Amazon</div>
+                            <div class="tool-nav">亚马逊免费AI编程工具</div>
+                            <div class="tool-description">实时代码建议，支持多种语言</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://aixcoder.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">aiXcoder</h3>
+                                <img src="https://aixcoder.com/favicon.ico" alt="aiXcoder" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">aiXcoder</div>
+                            <div class="tool-nav">国产开源AI编程助手</div>
+                            <div class="tool-description">开源AI编码助手，支持各种编程语言</div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="category">
+                <h2>🎯 AI图形设计工具 / AI Graphic Design Tools</h2>
+                <ul class="tools-grid">
+                    <li class="tool-card">
+                        <a href="https://www.canva.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Canva</h3>
+                                <img src="https://www.canva.com/favicon.ico" alt="Canva" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Canva</div>
+                            <div class="tool-nav">拖拽式设计，AI帮你快速出图</div>
+                            <div class="tool-description">AI驱动的图形设计，适合初学者和专业人士</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://designs.ai" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Designs.ai</h3>
+                                <img src="https://designs.ai/favicon.ico" alt="Designs.ai" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Designs.ai</div>
+                            <div class="tool-nav">AI全自动设计，2分钟生成Logo</div>
+                            <div class="tool-description">自动化设计工具，适合快速视觉内容创建</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.adobe.com/express" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Adobe Express</h3>
+                                <img src="https://www.adobe.com/favicon.ico" alt="Adobe Express" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Adobe</div>
+                            <div class="tool-nav">Adobe简化版，社交媒体设计神器</div>
+                            <div class="tool-description">AI驱动的快速设计，适合社交媒体内容</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.khroma.co" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Khroma</h3>
+                                <img src="https://www.khroma.co/favicon.ico" alt="Khroma" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Khroma</div>
+                            <div class="tool-nav">AI配色方案生成，解决选色难题</div>
+                            <div class="tool-description">AI颜色调色板生成器，适合设计师</div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="category">
+                <h2>🇨🇳 中国AI工具 / Chinese AI Tools</h2>
+                <ul class="tools-grid">
+                    <li class="tool-card">
+                        <a href="https://www.deepseek.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">DeepSeek</h3>
+                                <img src="https://www.deepseek.com/favicon.ico" alt="DeepSeek" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">DeepSeek</div>
+                            <div class="tool-nav">免费强大的中文AI，支持推理和编程</div>
+                            <div class="tool-description">高性能AI聊天和搜索工具</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://wenxin.baidu.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">ERNIE Bot</h3>
+                                <img src="https://wenxin.baidu.com/favicon.ico" alt="ERNIE Bot" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">百度</div>
+                            <div class="tool-nav">百度文心一言，中文理解能力强</div>
+                            <div class="tool-description">百度的大语言模型，在中国广泛使用</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://qwen.ai" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Qwen</h3>
+                                <img src="https://qwen.ai/favicon.ico" alt="Qwen" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">阿里巴巴</div>
+                            <div class="tool-nav">阿里通义千问，企业级AI解决方案</div>
+                            <div class="tool-description">阿里巴巴的AI解决方案，支持企业应用</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.baichuan.ai" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Baichuan</h3>
+                                <img src="https://www.baichuan.ai/favicon.ico" alt="Baichuan" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">百川智能</div>
+                            <div class="tool-nav">专注中文的大模型，理解更精准</div>
+                            <div class="tool-description">大语言模型，适合中文对话和创作</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.sensetime.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">SenseTime</h3>
+                                <img src="https://www.sensetime.com/favicon.ico" alt="SenseTime" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">商汤科技</div>
+                            <div class="tool-nav">计算机视觉领域的AI技术专家</div>
+                            <div class="tool-description">专注于计算机视觉和AI解决方案</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.iflytek.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">iFlytek</h3>
+                                <img src="https://www.iflytek.com/favicon.ico" alt="iFlytek" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">科大讯飞</div>
+                            <div class="tool-nav">中文语音识别和AI教育专家</div>
+                            <div class="tool-description">语音识别和AI技术，应用于教育和医疗</div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="category">
+                <h2>📱 AI社交媒体管理 / AI Social Media Management</h2>
+                <ul class="tools-grid">
+                    <li class="tool-card">
+                        <a href="https://www.feedhive.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">FeedHive</h3>
+                                <img src="https://www.feedhive.com/favicon.ico" alt="FeedHive" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">FeedHive</div>
+                            <div class="tool-nav">AI生成社媒内容，自动定时发布</div>
+                            <div class="tool-description">AI驱动的社交媒体内容创建和调度</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://vistasocial.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Vista Social</h3>
+                                <img src="https://vistasocial.com/favicon.ico" alt="Vista Social" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Vista Social</div>
+                            <div class="tool-nav">社媒数据分析，AI优化发布策略</div>
+                            <div class="tool-description">AI驱动的社交媒体规划和分析</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://buffer.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Buffer</h3>
+                                <img src="https://buffer.com/favicon.ico" alt="Buffer" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Buffer</div>
+                            <div class="tool-nav">多平台社媒管理，AI助手提升效率</div>
+                            <div class="tool-description">AI辅助的社交媒体发布和分析</div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="category">
+                <h2>📊 AI项目管理 / AI Project Management</h2>
+                <ul class="tools-grid">
+                    <li class="tool-card">
+                        <a href="https://clickup.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">ClickUp</h3>
+                                <img src="https://clickup.com/favicon.ico" alt="ClickUp" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">ClickUp</div>
+                            <div class="tool-nav">AI智能项目管理，自动分配任务</div>
+                            <div class="tool-description">AI增强的项目管理，带任务自动化</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://asana.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Asana</h3>
+                                <img src="https://asana.com/favicon.ico" alt="Asana" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Asana</div>
+                            <div class="tool-nav">团队协作利器，AI助力目标达成</div>
+                            <div class="tool-description">AI驱动的团队协作和任务管理</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.taskade.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Taskade</h3>
+                                <img src="https://www.taskade.com/favicon.ico" alt="Taskade" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Taskade</div>
+                            <div class="tool-nav">AI驱动的任务管理和团队协作</div>
+                            <div class="tool-description">AI驱动的任务和项目管理，适合团队</div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="category">
+                <h2>🎯 AI会议助手 / AI Meeting Assistants</h2>
+                <ul class="tools-grid">
+                    <li class="tool-card">
+                        <a href="https://otter.ai" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Otter.ai</h3>
+                                <img src="https://otter.ai/favicon.ico" alt="Otter.ai" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Otter.ai</div>
+                            <div class="tool-nav">会议实时转录，自动生成会议纪要</div>
+                            <div class="tool-description">AI驱动的会议转录和笔记记录</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://tldv.io" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">tl;dv</h3>
+                                <img src="https://tldv.io/favicon.ico" alt="tl;dv" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">tl;dv</div>
+                            <div class="tool-nav">会议录制和AI总结，重点一目了然</div>
+                            <div class="tool-description">AI驱动的会议总结和录制</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://www.nyota.com" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Nyota</h3>
+                                <img src="https://www.nyota.com/favicon.ico" alt="Nyota" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Nyota</div>
+                            <div class="tool-nav">AI会议助手，提升团队协作效率</div>
+                            <div class="tool-description">AI增强的会议协作和生产力工具</div>
+                        </a>
+                    </li>
+                    <li class="tool-card">
+                        <a href="https://fireflies.ai" class="tool-link" rel="noopener">
+                            <div class="tool-header">
+                                <h3 class="tool-name">Fireflies</h3>
+                                <img src="https://fireflies.ai/favicon.ico" alt="Fireflies" class="tool-favicon" onerror="this.style.display='none'">
+                            </div>
+                            <div class="tool-company">Fireflies.ai</div>
+                            <div class="tool-nav">自动录制会议，AI提取关键信息</div>
+                            <div class="tool-description">AI驱动的会议录制和转录</div>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </main>
+        
+        <footer>
+            <p>© 2025 AI工具导航站 · 最后更新：2025年6月15日</p>
+        </footer>
+    </div>
+</body>
+</html>
