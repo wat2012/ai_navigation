@@ -280,6 +280,7 @@
                     this.permissionBtn.style.display = 'block';
                     this.updateStatus('需要用户授权陀螺仪');
                 } else {
+                    this.permissionBtn.style.display = 'none';
                     this.enableGyroscope();
                 }
             }
@@ -300,11 +301,13 @@
                     } else {
                         this.infoDiv.textContent = '需要陀螺仪权限';
                         this.updateStatus('未获得陀螺仪权限');
+                        this.permissionBtn.style.display = 'block';
                     }
                 } catch (error) {
                     console.error('权限请求失败:', error);
                     this.infoDiv.textContent = '权限请求失败';
                     this.updateStatus('权限请求失败');
+                    this.permissionBtn.style.display = 'block';
                 }
             }
 
