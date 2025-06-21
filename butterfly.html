@@ -157,25 +157,16 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(60deg,
-                rgba(255,0,255,0.25) 0%,
-                rgba(0,255,255,0.35) 20%,
-                rgba(255,255,0,0.45) 40%,
-                rgba(0,255,127,0.35) 60%,
-                rgba(255,255,255,0.35) 80%,
-                rgba(255,0,0,0.25) 100%
-            );
-            opacity: 0.35;
-            mix-blend-mode: lighten;
+            background:
+                linear-gradient(60deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 100%),
+                linear-gradient(120deg, rgba(0,255,255,0.10) 0%, rgba(255,0,255,0.10) 100%),
+                linear-gradient(90deg, rgba(255,255,255,0.10) 40%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.10) 60%);
+            opacity: 0.22;
+            mix-blend-mode: screen;
             pointer-events: none;
             z-index: 5;
-            filter: hue-rotate(0deg) brightness(1.2) saturate(2.2);
+            filter: hue-rotate(0deg) brightness(1.15) saturate(1.5);
             transition: opacity 0.3s, filter 0.3s;
-        }
-
-        .card.flash .shine-effect {
-            opacity: 1;
-            transition: opacity 0.2s, filter 0.2s;
         }
 
         .holo-effect {
@@ -187,16 +178,17 @@
             pointer-events: none;
             z-index: 8;
             border-radius: 15px;
-            background: repeating-linear-gradient(
-                60deg,
-                rgba(0,255,255,0.13) 0px 12px,
-                rgba(255,0,255,0.13) 12px 24px,
-                rgba(255,255,0,0.13) 24px 36px,
-                rgba(0,255,127,0.13) 36px 48px,
-                rgba(255,255,255,0.10) 48px 60px,
-                rgba(255,0,0,0.13) 60px 72px
-            );
-            opacity: 0.22;
+            background:
+                repeating-linear-gradient(60deg,
+                    rgba(0,255,255,0.10) 0px 6px,
+                    rgba(255,0,255,0.10) 6px 12px,
+                    rgba(255,255,0,0.10) 12px 18px,
+                    rgba(0,255,127,0.10) 18px 24px,
+                    rgba(255,255,255,0.08) 24px 30px,
+                    rgba(255,0,0,0.10) 30px 36px
+                ),
+                linear-gradient(120deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%);
+            opacity: 0.16;
             mix-blend-mode: lighten;
             transition: filter 0.3s, opacity 0.3s;
         }
@@ -350,12 +342,12 @@
                 // 色相随角度变化，透明度随倾斜强度变化
                 const hue = (rotateY * 6 + rotateX * 4) % 360;
                 const intensity = Math.min(1, (Math.abs(rotateX) + Math.abs(rotateY)) / 30);
-                shine.style.filter = `hue-rotate(${hue}deg) brightness(${1 + intensity * 1.2}) saturate(${1 + intensity * 2.2})`;
-                shine.style.opacity = 0.18 + intensity * 0.22;
+                shine.style.filter = `hue-rotate(${hue}deg) brightness(${1 + intensity * 0.7}) saturate(${1 + intensity * 1.2})`;
+                shine.style.opacity = 0.13 + intensity * 0.18;
                 // holo-effect 虹彩鳞片反光
                 if (holo) {
-                    holo.style.filter = `hue-rotate(${hue * 2}deg) brightness(${1 + intensity * 2.2}) saturate(${1 + intensity * 2.5})`;
-                    holo.style.opacity = 0.12 + intensity * 0.18;
+                    holo.style.filter = `hue-rotate(${hue * 2}deg) brightness(${1 + intensity * 1.1}) saturate(${1 + intensity * 1.3})`;
+                    holo.style.opacity = 0.10 + intensity * 0.13;
                     holo.style.backgroundPosition = `${50 + rotateY * 2.5}% ${50 + rotateX * 2.5}%`;
                 }
             }
