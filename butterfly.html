@@ -165,7 +165,7 @@
                 rgba(255,255,255,0.35) 80%,
                 rgba(255,0,0,0.25) 100%
             );
-            opacity: 0.7;
+            opacity: 0.35;
             mix-blend-mode: lighten;
             pointer-events: none;
             z-index: 5;
@@ -180,24 +180,23 @@
 
         .holo-effect {
             position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 140px;
-            height: 140px;
-            transform: translate(-50%, -50%);
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
             z-index: 8;
-            border-radius: 10px;
-            background: repeating-conic-gradient(
-                from 0deg,
-                rgba(0,255,255,0.35) 0deg 20deg,
-                rgba(255,0,255,0.35) 20deg 40deg,
-                rgba(255,255,0,0.35) 40deg 60deg,
-                rgba(0,255,127,0.35) 60deg 80deg,
-                rgba(255,255,255,0.25) 80deg 100deg,
-                rgba(255,0,0,0.25) 100deg 120deg
+            border-radius: 15px;
+            background: repeating-linear-gradient(
+                60deg,
+                rgba(0,255,255,0.13) 0px 12px,
+                rgba(255,0,255,0.13) 12px 24px,
+                rgba(255,255,0,0.13) 24px 36px,
+                rgba(0,255,127,0.13) 36px 48px,
+                rgba(255,255,255,0.10) 48px 60px,
+                rgba(255,0,0,0.13) 60px 72px
             );
-            opacity: 0.85;
+            opacity: 0.22;
             mix-blend-mode: lighten;
             transition: filter 0.3s, opacity 0.3s;
         }
@@ -352,11 +351,11 @@
                 const hue = (rotateY * 6 + rotateX * 4) % 360;
                 const intensity = Math.min(1, (Math.abs(rotateX) + Math.abs(rotateY)) / 30);
                 shine.style.filter = `hue-rotate(${hue}deg) brightness(${1 + intensity * 1.2}) saturate(${1 + intensity * 2.2})`;
-                shine.style.opacity = 0.5 + intensity * 0.5;
+                shine.style.opacity = 0.18 + intensity * 0.22;
                 // holo-effect 虹彩鳞片反光
                 if (holo) {
                     holo.style.filter = `hue-rotate(${hue * 2}deg) brightness(${1 + intensity * 2.2}) saturate(${1 + intensity * 2.5})`;
-                    holo.style.opacity = 0.6 + intensity * 0.4;
+                    holo.style.opacity = 0.12 + intensity * 0.18;
                     holo.style.backgroundPosition = `${50 + rotateY * 2.5}% ${50 + rotateX * 2.5}%`;
                 }
             }
