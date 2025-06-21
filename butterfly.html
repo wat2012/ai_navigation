@@ -345,12 +345,7 @@
                 const clampedX = Math.max(-30, Math.min(30, rotateX));
                 const clampedY = Math.max(-30, Math.min(30, rotateY));
                 const clampedZ = Math.max(-15, Math.min(15, rotateZ));
-                this.card.style.transform = `
-                    rotateX(${clampedX}deg) 
-                    rotateY(${clampedY}deg) 
-                    rotateZ(${clampedZ}deg)
-                    scale(${1 + Math.abs(clampedY) * 0.005})
-                `;
+                // 不再变换牌的角度，只变换闪光和鳞片效果
                 this.updateShineEffect(clampedX, clampedY, clampedZ);
                 this.triggerFlash(clampedX, clampedY, clampedZ);
             }
