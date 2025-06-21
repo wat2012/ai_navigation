@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蝴蝶翅膀陀螺仪效果</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .butterfly {
+            position: relative;
+            transform-style: preserve-3d;
+            width: 200px;
+            height: 200px;
+        }
+
+        .wing {
+            position: absolute;
+            width: 80px;
+            height: 120px;
+            background: linear-gradient(45deg, 
+                rgba(255, 165, 0, 0.8) 0%,
+                rgba(255, 69, 0, 0.8) 25%,
+                rgba(138, 43, 226, 0.8) 50%,
+                rgba(0, 191, 255, 0.8) 75%,
+                rgba(50, 205, 50, 0.8) 100%);
+            border-radius: 50% 20% 50% 80%;
+            transform-origin: center bottom;
+            animation: flutter 2s ease-in-out infinite alternate;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .wing.left {
+            left: 50px;
+            transform: rotateY(-10deg) rotateZ(-10deg);
+        }
+
+        .wing.right {
+            right: 50px;
+            transform: rotateY(10deg) rotateZ(10deg) scaleX(-1);
+        }
+
+        .wing::before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            background: radial-gradient(circle, 
+                rgba(255, 255, 255, 0.6) 0%,
+                rgba(255, 255, 255, 0.2) 40%,
+                transparent 70%);
+            border-radius: 50%;
+            top: 20px;
+            left: 10px;
+        }
+
+        .body {
+            position: absolute;
+            width: 4px;
+            height: 140px;
+            background: linear-gradient(to bottom, #8B4513, #2F4F4F);
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 2px;
+            z-index: 10;
+        }
+
+        @keyframes flutter {
+            0% { transform: rotateX(0deg) rotateZ(-10deg); }
+            100% { transform: rotateX(-15deg) rotateZ(5deg); }
+        }
+
+        .info {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .permission-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="butterfly" id="butterfly">
+            <div class="wing left"></div>
+            <div class="wing right"></div>
+            <div class="body"></div>
+        </div>
+    </div>
+
+    <div class="info" id="info">
+        <div>倾斜手机查看不同角度的蝴蝶翅膀效果</div>
+        <div id="orientation-data">等待陀螺仪数据...</div>
+    </div>
+
+    <button class="permission-btn" id="permissionBtn">启用陀螺仪</button>
+
+    <script>
+        class ButterflyGyroscope {
+            constructor() {
+                this.butterfly = document.getElementById('butterfly');
+                this.infoDiv = document.getElementById('orientation-data');
+                this.permissionBtn = document.getElementById('permissionBtn');
+                
+                this.isSupported = false;
+                this.isPermissionGranted = false;
+                
+                this.init();
+            }
+
+            init() {
+                this.checkSupport();
+                this.setupEventListeners();
+                this.checkPermission();
+            }
+
+            checkSupport() {
+                if ('DeviceOrientationEvent' in window) {
+                    this.isSupported = true;
+                    this.infoDiv.textContent = '设备支持陀螺仪';
+                } else {
+                    this.infoDiv.textContent = '设备不支持陀螺仪';
+                }
+            }
+
+            async checkPermission() {
+                // 检查是否需要权限请求（iOS 13+）
+                if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    this.permissionBtn.style.display = 'block';
+                } else {
+                    // 直接启用陀螺仪监听
+                    this.enableGyroscope();
+                }
+            }
+
+            setupEventListeners() {
+                this.permissionBtn.addEventListener('click', () => {
+                    this.requestPermission();
+                });
+            }
+
+            async requestPermission() {
+                try {
+                    const permission = await DeviceOrientationEvent.requestPermission();
+                    if (permission === 'granted') {
+                        this.isPermissionGranted = true;
+                        this.permissionBtn.style.display = 'none';
+                        this.enableGyroscope();
+                    } else {
+                        this.infoDiv.textContent = '陀螺仪权限被拒绝';
+                    }
+                } catch (error) {
+                    console.error('权限请求失败:', error);
+                    this.infoDiv.textContent = '权限请求失败';
+                }
+            }
+
+            enableGyroscope() {
+                if (!this.isSupported) return;
+
+                window.addEventListener('deviceorientation', (event) => {
+                    this.handleOrientation(event);
+                });
+
+                this.infoDiv.textContent = '陀螺仪已启用，请倾斜设备';
+            }
+
+            handleOrientation(event) {
+                const { alpha, beta, gamma } = event;
+                
+                // 更新信息显示
+                this.infoDiv.innerHTML = `
+                    <div>Alpha (Z轴): ${alpha ? alpha.toFixed(1) : 'N/A'}°</div>
+                    <div>Beta (X轴): ${beta ? beta.toFixed(1) : 'N/A'}°</div>
+                    <div>Gamma (Y轴): ${gamma ? gamma.toFixed(1) : 'N/A'}°</div>
+                `;
+
+                // 应用3D变换
+                this.applyTransform(alpha, beta, gamma);
+            }
+
+            applyTransform(alpha, beta, gamma) {
+                if (alpha === null || beta === null || gamma === null) return;
+
+                // 计算变换参数
+                const rotateX = beta ? beta * 0.5 : 0;  // 前后倾斜
+                const rotateY = gamma ? gamma * 0.5 : 0; // 左右倾斜
+                const rotateZ = alpha ? alpha * 0.2 : 0; // 旋转
+
+                // 限制旋转角度范围
+                const clampedX = Math.max(-45, Math.min(45, rotateX));
+                const clampedY = Math.max(-45, Math.min(45, rotateY));
+                const clampedZ = Math.max(-30, Math.min(30, rotateZ));
+
+                // 应用变换
+                this.butterfly.style.transform = `
+                    rotateX(${clampedX}deg) 
+                    rotateY(${clampedY}deg) 
+                    rotateZ(${clampedZ}deg)
+                    scale(${1 + Math.abs(clampedY) * 0.01})
+                `;
+
+                // 动态调整翅膀的虹彩效果
+                this.updateWingEffect(clampedX, clampedY, clampedZ);
+            }
+
+            updateWingEffect(rotateX, rotateY, rotateZ) {
+                const wings = document.querySelectorAll('.wing');
+                const intensity = Math.abs(rotateY) / 45;
+                const hueShift = rotateZ * 2;
+
+                wings.forEach(wing => {
+                    wing.style.filter = `
+                        hue-rotate(${hueShift}deg) 
+                        brightness(${1 + intensity * 0.3}) 
+                        saturate(${1 + intensity * 0.5})
+                    `;
+                });
+            }
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            new ButterflyGyroscope();
+        });
+
+        // 防止页面滚动
+        document.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+        }, { passive: false });
+    </script>
+</body>
+</html>
