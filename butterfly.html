@@ -89,53 +89,6 @@
             color: #dc143c;
         }
 
-        .center-king {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120px;
-            height: 160px;
-            color: #dc143c;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .crown {
-            font-size: 40px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(220, 20, 60, 0.3);
-        }
-
-        .king-face {
-            width: 80px;
-            height: 80px;
-            background: radial-gradient(circle, #dc143c 20%, #a0112a 80%);
-            border-radius: 50%;
-            position: relative;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .king-face::before {
-            content: '♔';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 30px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-        }
-
-        .king-label {
-            font-size: 18px;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-
         .decorative-hearts {
             position: absolute;
             color: #dc143c;
@@ -158,6 +111,18 @@
             padding: 8px 16px;
             border-radius: 20px;
             text-align: center;
+            font-family: 'Orbitron', 'Consolas', 'Arial Black', sans-serif;
+            font-size: 22px;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #00fff7 0%, #ff00ea 50%, #ffe600 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            text-shadow: 0 0 8px #00fff7, 0 0 16px #ff00ea, 0 0 24px #ffe600;
+            border-radius: 24px;
+            padding: 10px 32px;
+            box-shadow: 0 0 24px 4px rgba(0,255,255,0.18), 0 0 32px 8px rgba(255,0,255,0.12);
         }
 
         #status {
@@ -241,21 +206,16 @@
 <body>
     <div class="container">
         <div class="card" id="card">
-            <div class="shine-effect"></div>
-            <div class="card-content">
+            <img src="card1.webp" alt="Blue-Eyes White Dragon" style="position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;z-index:1;pointer-events:none;">
+            <div class="holo-effect" id="holoEffect" style="left:0;top:0;width:100%;height:100%;transform:none;border-radius:15px;"></div>
+            <div class="shine-effect" style="left:0;top:0;width:100%;height:100%;"></div>
+            <div class="card-content" style="position:relative;z-index:10;">
                 <div class="corner-top">
                     K<br><span class="suit-symbol">♥</span>
                 </div>
                 <div class="corner-bottom">
                     K<br><span class="suit-symbol">♥</span>
                 </div>
-                <div class="holo-effect" id="holoEffect"></div>
-                <div class="center-king">
-                    <div class="crown">👑</div>
-                    <div class="king-face"></div>
-                    <div class="king-label">KING</div>
-                </div>
-                
                 <div class="decorative-hearts heart1">♥</div>
                 <div class="decorative-hearts heart2">♥</div>
                 <div class="decorative-hearts heart3">♥</div>
@@ -264,9 +224,23 @@
         </div>
     </div>
 
-    <div class="info" id="info">
-        倾斜设备查看闪光效果
-    </div>
+    <div class="info" id="info" style="
+            font-family: 'Orbitron', 'Consolas', 'Arial Black', sans-serif;
+            font-size: 22px;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #00fff7 0%, #ff00ea 50%, #ffe600 100%);
+            color: #fff;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            text-shadow: 0 0 8px #00fff7, 0 0 16px #ff00ea, 0 0 24px #ffe600;
+            border-radius: 24px;
+            padding: 10px 32px;
+            box-shadow: 0 0 24px 4px rgba(0,255,255,0.18), 0 0 32px 8px rgba(255,0,255,0.12);
+        ">
+            赛博闪卡
+        </div>
     <div id="status" style="position:fixed;top:60px;left:50%;transform:translateX(-50%);color:#fff;font-size:15px;text-align:center;"></div>
 
     <button class="permission-btn" id="permissionBtn">启用陀螺仪</button>
