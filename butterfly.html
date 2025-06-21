@@ -192,25 +192,67 @@
             mix-blend-mode: lighten;
             transition: filter 0.3s, opacity 0.3s;
         }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(.23,1.12,.62,1.01);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #222;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .card-back > div {
+            width: 90%;
+            height: 90%;
+            background: repeating-linear-gradient(45deg,#444 0 10px,#666 10px 20px,#222 20px 30px,#666 30px 40px);
+            border-radius: 10px;
+            box-shadow: 0 2px 12px #0006;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card" id="card">
-            <img src="card1.webp" alt="Blue-Eyes White Dragon" style="position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;z-index:1;pointer-events:none;">
-            <div class="holo-effect" id="holoEffect" style="left:0;top:0;width:100%;height:100%;transform:none;border-radius:15px;"></div>
-            <div class="shine-effect" style="left:0;top:0;width:100%;height:100%;"></div>
-            <div class="card-content" style="position:relative;z-index:10;">
-                <div class="corner-top">
-                    K<br><span class="suit-symbol">♥</span>
+        <div class="card" id="card" style="perspective: 1200px;">
+            <div class="card-inner" id="cardInner" style="width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.7s cubic-bezier(.23,1.12,.62,1.01);">
+                <!-- 正面 -->
+                <div class="card-front" style="position:absolute;width:100%;height:100%;backface-visibility:hidden;z-index:2;">
+                    <img src="card1.webp" alt="Blue-Eyes White Dragon" style="position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;z-index:1;pointer-events:none;">
+                    <div class="holo-effect" id="holoEffect" style="left:0;top:0;width:100%;height:100%;transform:none;border-radius:15px;"></div>
+                    <div class="shine-effect" style="left:0;top:0;width:100%;height:100%;"></div>
+                    <div class="card-content" style="position:relative;z-index:10;">
+                        <div class="corner-top">
+                            K<br><span class="suit-symbol">♥</span>
+                        </div>
+                        <div class="corner-bottom">
+                            K<br><span class="suit-symbol">♥</span>
+                        </div>
+                        <div class="decorative-hearts heart1">♥</div>
+                        <div class="decorative-hearts heart2">♥</div>
+                        <div class="decorative-hearts heart3">♥</div>
+                        <div class="decorative-hearts heart4">♥</div>
+                    </div>
                 </div>
-                <div class="corner-bottom">
-                    K<br><span class="suit-symbol">♥</span>
+                <!-- 背面 -->
+                <div class="card-back" style="position:absolute;width:100%;height:100%;backface-visibility:hidden;transform:rotateY(180deg);z-index:1;display:flex;align-items:center;justify-content:center;background:#222;border-radius:15px;overflow:hidden;">
+                    <div style="width:90%;height:90%;background:repeating-linear-gradient(45deg,#444 0 10px,#666 10px 20px,#222 20px 30px,#666 30px 40px);border-radius:10px;box-shadow:0 2px 12px #0006;"></div>
                 </div>
-                <div class="decorative-hearts heart1">♥</div>
-                <div class="decorative-hearts heart2">♥</div>
-                <div class="decorative-hearts heart3">♥</div>
-                <div class="decorative-hearts heart4">♥</div>
             </div>
         </div>
     </div>
@@ -240,6 +282,7 @@
         class CardGyroscope {
             constructor() {
                 this.card = document.getElementById('card');
+                this.cardInner = document.getElementById('cardInner');
                 this.infoDiv = document.getElementById('info');
                 this.permissionBtn = document.getElementById('permissionBtn');
                 this.statusDiv = document.getElementById('status');
@@ -248,6 +291,12 @@
                 this.lastFlashTime = 0;
                 this.gyroEnabled = false;
                 this.lastAngles = { alpha: 0, beta: 0, gamma: 0 };
+                this.isFlipped = false;
+                this.dragging = false;
+                this.lastX = 0;
+                this.lastY = 0;
+                this.rotateY = 0;
+                this.rotateX = 0;
                 this.init();
             }
 
@@ -256,6 +305,58 @@
                 this.setupEventListeners();
                 this.checkPermission();
                 this.updateStatus('等待陀螺仪启用...');
+                this.setup3DTouch();
+            }
+
+            setup3DTouch() {
+                const cardInner = this.cardInner;
+                let startX, startY, lastRotateX = 0, lastRotateY = 0;
+                const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+                // 触摸
+                cardInner.addEventListener('touchstart', e => {
+                    if (e.touches.length !== 1) return;
+                    this.dragging = true;
+                    startX = e.touches[0].clientX;
+                    startY = e.touches[0].clientY;
+                    lastRotateX = this.rotateX;
+                    lastRotateY = this.rotateY;
+                });
+                cardInner.addEventListener('touchmove', e => {
+                    if (!this.dragging || e.touches.length !== 1) return;
+                    const dx = e.touches[0].clientX - startX;
+                    const dy = e.touches[0].clientY - startY;
+                    this.rotateY = clamp(lastRotateY + dx * 0.5, -60, 60);
+                    this.rotateX = clamp(lastRotateX - dy * 0.5, -60, 60);
+                    this.apply3DRotation();
+                });
+                cardInner.addEventListener('touchend', e => {
+                    this.dragging = false;
+                });
+                // 鼠标
+                cardInner.addEventListener('mousedown', e => {
+                    this.dragging = true;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    lastRotateX = this.rotateX;
+                    lastRotateY = this.rotateY;
+                });
+                window.addEventListener('mousemove', e => {
+                    if (!this.dragging) return;
+                    const dx = e.clientX - startX;
+                    const dy = e.clientY - startY;
+                    this.rotateY = clamp(lastRotateY + dx * 0.5, -60, 60);
+                    this.rotateX = clamp(lastRotateX - dy * 0.5, -60, 60);
+                    this.apply3DRotation();
+                });
+                window.addEventListener('mouseup', e => {
+                    this.dragging = false;
+                });
+                // 点击翻转
+                cardInner.addEventListener('click', e => {
+                    if (this.dragging) return;
+                    this.isFlipped = !this.isFlipped;
+                    this.apply3DRotation();
+                });
             }
 
             checkSupport() {
@@ -373,6 +474,11 @@
 
             updateStatus(html) {
                 if (this.statusDiv) this.statusDiv.innerHTML = html;
+            }
+
+            apply3DRotation() {
+                const flip = this.isFlipped ? 180 : 0;
+                this.cardInner.style.transform = `rotateY(${this.rotateY + flip}deg) rotateX(${this.rotateX}deg)`;
             }
         }
 
