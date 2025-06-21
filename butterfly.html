@@ -160,6 +160,16 @@
             text-align: center;
         }
 
+        #status {
+            position: fixed;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 15px;
+            text-align: center;
+        }
+
         .permission-btn {
             position: fixed;
             bottom: 30px;
@@ -230,6 +240,7 @@
     <div class="info" id="info">
         倾斜设备查看闪光效果
     </div>
+    <div id="status" style="position:fixed;top:60px;left:50%;transform:translateX(-50%);color:#fff;font-size:15px;text-align:center;"></div>
 
     <button class="permission-btn" id="permissionBtn">启用陀螺仪</button>
 
@@ -239,11 +250,12 @@
                 this.card = document.getElementById('card');
                 this.infoDiv = document.getElementById('info');
                 this.permissionBtn = document.getElementById('permissionBtn');
-                
+                this.statusDiv = document.getElementById('status');
                 this.isSupported = false;
                 this.isPermissionGranted = false;
                 this.lastFlashTime = 0;
-                
+                this.gyroEnabled = false;
+                this.lastAngles = { alpha: 0, beta: 0, gamma: 0 };
                 this.init();
             }
 
@@ -251,6 +263,7 @@
                 this.checkSupport();
                 this.setupEventListeners();
                 this.checkPermission();
+                this.updateStatus('等待陀螺仪启用...');
             }
 
             checkSupport() {
@@ -258,12 +271,14 @@
                     this.isSupported = true;
                 } else {
                     this.infoDiv.textContent = '设备不支持陀螺仪';
+                    this.updateStatus('设备不支持陀螺仪');
                 }
             }
 
             async checkPermission() {
                 if (typeof DeviceOrientationEvent.requestPermission === 'function') {
                     this.permissionBtn.style.display = 'block';
+                    this.updateStatus('需要用户授权陀螺仪');
                 } else {
                     this.enableGyroscope();
                 }
@@ -284,73 +299,73 @@
                         this.enableGyroscope();
                     } else {
                         this.infoDiv.textContent = '需要陀螺仪权限';
+                        this.updateStatus('未获得陀螺仪权限');
                     }
                 } catch (error) {
                     console.error('权限请求失败:', error);
                     this.infoDiv.textContent = '权限请求失败';
+                    this.updateStatus('权限请求失败');
                 }
             }
 
             enableGyroscope() {
                 if (!this.isSupported) return;
-
                 window.addEventListener('deviceorientation', (event) => {
                     this.handleOrientation(event);
                 });
-
+                this.gyroEnabled = true;
                 this.infoDiv.textContent = '倾斜设备查看闪光效果';
+                this.updateStatus('陀螺仪已启用');
             }
 
             handleOrientation(event) {
                 const { alpha, beta, gamma } = event;
+                this.lastAngles = { alpha, beta, gamma };
                 this.applyTransform(alpha, beta, gamma);
+                this.updateStatus(
+                    (this.gyroEnabled ? '陀螺仪已启用' : '陀螺仪未启用') +
+                    `<br>α: ${alpha !== null ? alpha.toFixed(1) : '--'} β: ${beta !== null ? beta.toFixed(1) : '--'} γ: ${gamma !== null ? gamma.toFixed(1) : '--'}`
+                );
             }
 
             applyTransform(alpha, beta, gamma) {
                 if (alpha === null || beta === null || gamma === null) return;
-
                 const rotateX = beta ? beta * 0.3 : 0;
                 const rotateY = gamma ? gamma * 0.3 : 0;
                 const rotateZ = alpha ? alpha * 0.1 : 0;
-
                 const clampedX = Math.max(-30, Math.min(30, rotateX));
                 const clampedY = Math.max(-30, Math.min(30, rotateY));
                 const clampedZ = Math.max(-15, Math.min(15, rotateZ));
-
                 this.card.style.transform = `
                     rotateX(${clampedX}deg) 
                     rotateY(${clampedY}deg) 
                     rotateZ(${clampedZ}deg)
                     scale(${1 + Math.abs(clampedY) * 0.005})
                 `;
-
-                // 触发闪光效果
                 this.triggerFlash(clampedX, clampedY, clampedZ);
             }
 
             triggerFlash(rotateX, rotateY, rotateZ) {
                 const now = Date.now();
                 const intensity = Math.abs(rotateY) + Math.abs(rotateX);
-                
-                // 当倾斜角度较大且距离上次闪光超过1秒时触发闪光
                 if (intensity > 15 && now - this.lastFlashTime > 1000) {
                     this.card.classList.add('flash');
                     this.lastFlashTime = now;
-                    
                     setTimeout(() => {
                         this.card.classList.remove('flash');
                     }, 600);
                 }
-
-                // 动态调整阴影和光泽
                 const shadowIntensity = Math.abs(rotateY) / 30;
                 const shadowX = rotateY * 0.5;
                 const shadowY = rotateX * 0.5;
-                
                 this.card.style.boxShadow = `
                     ${shadowX}px ${shadowY}px ${20 + shadowIntensity * 20}px rgba(0, 0, 0, ${0.3 + shadowIntensity * 0.2}),
                     0 0 ${shadowIntensity * 30}px rgba(220, 20, 60, ${shadowIntensity * 0.3})
                 `;
+            }
+
+            updateStatus(html) {
+                if (this.statusDiv) this.statusDiv.innerHTML = html;
             }
         }
 
