@@ -351,6 +351,154 @@ const aiToolsData = {
           detailsEn: "AI-powered presentation and document creation tool with automatic design and layout"
         }
       ]
+    },
+    {
+      id: "ai-healthcare",
+      icon: "🩺",
+      title: "AI医疗健康 / AI Healthcare",
+      tools: [
+        {
+          name: "FDA INTACT",
+          url: "https://www.fda.gov/ai-intact",
+          company: "FDA",
+          favicon: "https://www.fda.gov/favicon.ico",
+          description: "全球医疗AI工具，提升诊断和监管效率",
+          descriptionEn: "Global medical AI tool for improved diagnosis and regulatory efficiency",
+          details: "2025年FDA上线INTACT，优化医疗设备审批和数据分析，推动AI医疗应用",
+          detailsEn: "FDA launched INTACT in 2025 to optimize medical device approval and data analysis, driving AI healthcare adoption"
+        },
+        {
+          name: "Crescendo Brain-Computer",
+          url: "https://crescendo.ai/brain-computer",
+          company: "Crescendo AI",
+          favicon: "https://crescendo.ai/favicon.ico",
+          description: "脑机接口AI，将思维转为文字或语音",
+          descriptionEn: "Brain-computer interface AI, converts thoughts to text or speech",
+          details: "2025年突破，助力瘫痪患者表达，医疗辅助新纪元",
+          detailsEn: "2025 breakthrough, helps paralyzed patients communicate, new era for medical assistance"
+        }
+      ]
+    },
+    {
+      id: "ai-education",
+      icon: "📚",
+      title: "AI教育 / AI Education",
+      tools: [
+        {
+          name: "NVIDIA AI School",
+          url: "https://www.nvidia.com/education/ai",
+          company: "NVIDIA",
+          favicon: "https://www.nvidia.com/favicon.ico",
+          description: "K-12阶段AI课程与教师培训",
+          descriptionEn: "K-12 AI curriculum and teacher training",
+          details: "与密西西比州合作，推动AI基础教育，培养AI时代人才",
+          detailsEn: "Cooperation with Mississippi to promote AI education and talent for the AI era"
+        },
+        {
+          name: "AI Tutor Platform",
+          url: "https://crescendo.ai/edu-tutor",
+          company: "Crescendo AI",
+          favicon: "https://crescendo.ai/favicon.ico",
+          description: "AI辅导与内容生成，交互式学习平台",
+          descriptionEn: "AI tutoring and content generation, interactive learning platform",
+          details: "支持与AI模拟历史人物对话，提升学习趣味性和个性化",
+          detailsEn: "Supports dialogue with AI-simulated historical figures, enhances learning engagement and personalization"
+        }
+      ]
+    },
+    {
+      id: "ai-platforms",
+      icon: "🛠️",
+      title: "AI平台 / AI Platforms",
+      tools: [
+        {
+          name: "Meta LLaMA 3",
+          url: "https://ai.meta.com/llama",
+          company: "Meta",
+          favicon: "https://ai.meta.com/favicon.ico",
+          description: "开源大模型，性能强劲，开发者友好",
+          descriptionEn: "Open-source large model, high performance, developer-friendly",
+          details: "LLaMA 3推动开源AI生态，2025年性能与成本大幅提升",
+          detailsEn: "LLaMA 3 drives open-source AI ecosystem, major performance and cost improvements in 2025"
+        },
+        {
+          name: "Google Vertex AI",
+          url: "https://cloud.google.com/vertex-ai",
+          company: "Google",
+          favicon: "https://cloud.google.com/favicon.ico",
+          description: "企业级AI平台，支持多模态模型和快速创新",
+          descriptionEn: "Enterprise AI platform, supports multimodal models and rapid innovation",
+          details: "2025年主流企业AI平台，适合ML工程师和开发者",
+          detailsEn: "Mainstream enterprise AI platform in 2025, suitable for ML engineers and developers"
+        },
+        {
+          name: "Microsoft Azure AI",
+          url: "https://azure.microsoft.com/en-us/products/ai-services/",
+          company: "Microsoft",
+          favicon: "https://azure.microsoft.com/favicon.ico",
+          description: "多模态AI平台，支持快速部署和创新",
+          descriptionEn: "Multimodal AI platform, supports rapid deployment and innovation",
+          details: "2025年Azure集成最新开源与专用模型，企业应用广泛",
+          detailsEn: "Azure integrates latest open-source and proprietary models, widely used in enterprises in 2025"
+        },
+        {
+          name: "H2O.ai",
+          url: "https://h2o.ai",
+          company: "H2O.ai",
+          favicon: "https://h2o.ai/favicon.ico",
+          description: "自动化机器学习平台，支持多行业应用",
+          descriptionEn: "Automated machine learning platform, supports multi-industry applications",
+          details: "2025年主流AutoML平台，医疗、金融、制造等领域广泛应用",
+          detailsEn: "Mainstream AutoML platform in 2025, widely used in healthcare, finance, manufacturing, etc."
+        },
+        {
+          name: "IBM watsonx.ai",
+          url: "https://www.ibm.com/watsonx",
+          company: "IBM",
+          favicon: "https://www.ibm.com/favicon.ico",
+          description: "企业级AI平台，支持定制化和安全合规",
+          descriptionEn: "Enterprise AI platform, supports customization and compliance",
+          details: "2025年IBM推出watsonx.ai，专注企业AI安全与合规",
+          detailsEn: "IBM launched watsonx.ai in 2025, focused on enterprise AI security and compliance"
+        }
+      ]
+    },
+    {
+      id: "ai-content-generation",
+      icon: "📝",
+      title: "AI内容生成 / AI Content Generation",
+      tools: [
+        {
+          name: "Eden AI",
+          url: "https://edenai.co",
+          company: "Eden AI",
+          favicon: "https://edenai.co/favicon.ico",
+          description: "一站式AI集成平台，多个模型接口",
+          descriptionEn: "All-in-one AI integration platform, multiple model APIs",
+          details: "2025年热门平台，支持多种AI模型和内容生成API",
+          detailsEn: "Popular platform in 2025, supports various AI models and content generation APIs"
+        },
+        {
+          name: "PolyBuzz",
+          url: "https://polybuzz.ai",
+          company: "PolyBuzz",
+          favicon: "https://polybuzz.ai/favicon.ico",
+          description: "AI驱动内容生成与营销平台",
+          descriptionEn: "AI-powered content generation and marketing platform",
+          details: "2025年新兴平台，助力企业内容创作与自动化营销",
+          detailsEn: "Emerging platform in 2025, helps enterprise content creation and automated marketing"
+        },
+        {
+          name: "SERRAT.AI",
+          url: "https://serrat.ai",
+          company: "SERRAT.AI",
+          favicon: "https://serrat.ai/favicon.ico",
+          description: "创作者AI内容生成与辅助工具",
+          descriptionEn: "AI content generation and assistant tool for creators",
+          details: "2025年面向创作者的AI工具，提升内容创作效率",
+          detailsEn: "AI tool for creators in 2025, improves content creation efficiency"
+        }
+      ]
     }  ],
   stats: {
     totalTools: "120+",
